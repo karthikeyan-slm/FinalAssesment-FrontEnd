@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class ViewTasksComponent implements OnInit {
   projectId?: number;
   Project: string;
-  TaskID: number;
+  taskId: number;
   Task: string;
   ParentTaskID?: number;
   ParentTask: string;
@@ -36,7 +36,8 @@ export class ViewTasksComponent implements OnInit {
   }
 
   public EndTask(task: TaskModel) {
-    this.apiService.EndTask(task).subscribe((data) => {
+    console.log(task.taskId);
+    this.apiService.EndTask(task.taskId).subscribe((data) => {
       this.GetTasks(this.projectId);
       document.getElementById('userMsg').innerText = "Task ended successfully...";
       document.getElementById('userMsg').style.color = "green";

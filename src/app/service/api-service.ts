@@ -142,15 +142,22 @@ export class ApiService {
             .catch(this.handleError)
     }
 
-    EndTask(task) {
-        let body = JSON.stringify(task);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let endUrl = this.taskServiceUrl + '/EndTask'
-
-        return this._http.post(endUrl, body, options)
-            .catch(this.handleError);
+    EndTask(taskId): Observable<TaskModel[]> {
+        let getUrl = this.taskServiceUrl + '/endTask/' + taskId;
+        return this._http.get(getUrl)
+            .pipe(map(response => { return response.json() }))
+            .catch(this.handleError)
     }
+    // EndTask(task) {
+    //     task
+    //     let body = JSON.stringify(task);
+    //     let headers = new Headers({ 'Content-Type': 'application/json' });
+    //     let options = new RequestOptions({ headers: headers });
+    //     let endUrl = this.taskServiceUrl + '/endTask'
+
+    //     return this._http.post(endUrl, body, options)
+    //         .catch(this.handleError);
+    // }
 
     private handleError(error: Response | any) {
         console.error('ApiService:handleError', error);
